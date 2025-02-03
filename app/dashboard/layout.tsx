@@ -1,3 +1,5 @@
+import Navbar from "@/components/Navbar";
+
 export default function DashboardLayout({
   children,
 }: {
@@ -5,8 +7,10 @@ export default function DashboardLayout({
 }) {
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Add navigation/sidebar here */}
-      <main>{children}</main>
+      <Navbar />
+      <div className="pt-16">
+        <main className="container mx-auto px-4">{children}</main>
+      </div>
     </div>
   );
 } 

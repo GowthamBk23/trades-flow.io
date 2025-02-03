@@ -1,11 +1,8 @@
 import { clerkMiddleware } from "@clerk/nextjs/server";
+import { NextResponse } from "next/server";
 
-export default clerkMiddleware({
-  publicRoutes: ["/"],
-  ignoredRoutes: [
-    "/(sign-in|sign-up|login|signup)(.*)", 
-    "/api/webhook/clerk"
-  ],
+export default clerkMiddleware(() => {
+  return NextResponse.next();
 });
 
 export const config = {
