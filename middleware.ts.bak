@@ -1,0 +1,21 @@
+import { createMiddleware } from "next/server";
+import { withClerkMiddleware } from "@clerk/nextjs/server";
+
+export default withClerkMiddleware({
+  // Public routes that don't require authentication
+  publicRoutes: ["/"],
+  
+  // Routes that can be accessed by authenticated users only
+  ignoredRoutes: ["/sign-in(.*)", "/sign-up(.*)", "/api/webhook/clerk"],
+
+  afterAuth(auth, req) {
+    // Skip auth check for sign-in/sign-up routes
+    if (req.url.includes('/sign-in') || req.url.includes('/sign-up')) {
+      return;
+    }
+  }
+});
+
+export const config = {
+  matcher: "/((?!_next|_static|favicon.ico).*)",
+}; 
