@@ -9,13 +9,19 @@ export default function DashboardPage() {
   if (!isLoaded) return null;
   if (!user) redirect("/sign-in");
 
+  const displayName = user.firstName || user.username || 'User';
+
   return (
-    <div className="container mx-auto p-6">
-      <h1 className="text-2xl font-bold mb-6">Dashboard</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="bg-white p-6 rounded-lg shadow">
-          <h2 className="text-xl font-semibold mb-4">Quick Actions</h2>
-          <p>Welcome, {user.emailAddresses[0].emailAddress}</p>
+    <div className="space-y-6">
+      <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Dashboard</h1>
+      <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
+        <div className="space-y-4">
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+            Welcome, {displayName}!
+          </h2>
+          <p className="text-gray-600 dark:text-gray-300">
+            Manage your tasks and schedule efficiently.
+          </p>
         </div>
       </div>
     </div>

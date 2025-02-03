@@ -1,18 +1,21 @@
 'use client';
 
 import Link from "next/link";
-import { UserButton } from "@clerk/nextjs";
+import { UserButton, useUser } from "@clerk/nextjs";
 import { usePathname } from "next/navigation";
 import DarkModeToggle from "./DarkModeToggle";
 
 export default function Navbar() {
   const pathname = usePathname();
+  const { user } = useUser();
   
   const navItems = [
     { label: 'Dashboard', href: '/dashboard' },
-    { label: 'Tasks', href: '/tasks' },
-    { label: 'Schedule', href: '/schedule' },
-    { label: 'Clock In/Out', href: '/clock' },
+    { label: 'Tasks', href: '/dashboard/tasks' },
+    { label: 'Schedule', href: '/dashboard/schedule' },
+    { label: 'Clock In/Out', href: '/dashboard/clock' },
+    { label: 'Chat', href: '/dashboard/chat' },
+    { label: 'Invoices', href: '/dashboard/invoices' }
   ];
 
   return (
@@ -42,6 +45,13 @@ export default function Navbar() {
           <div className="flex items-center space-x-4">
             <DarkModeToggle />
             <UserButton afterSignOutUrl="/sign-in" />
+            <div className="ml-4">
+              {user && (
+                <span className="text-gray-900 dark:text-gray-300 text-sm font-medium">
+                  {user.firstName || user.emailAddresses[0].emailAddress}
+                </span>
+              )}
+            </div>
           </div>
         </div>
       </div>

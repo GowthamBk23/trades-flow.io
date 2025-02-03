@@ -5,6 +5,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { AuthProvider } from '@/lib/context/auth-context';
 import ClientLayout from '@/components/ClientLayout';
 import Navbar from '@/components/Navbar';
+import { ThemeProvider } from '@/components/theme-provider';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,14 +30,21 @@ export default function RootLayout({
   return (
     <ClerkProvider publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}>
       <AuthProvider>
-        <html lang="en" className="h-full">
+        <html lang="en" suppressHydrationWarning>
           <body className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-background text-foreground`}>
-            <ClientLayout>
-              <Navbar />
-              <div className="pt-16">
-                {children}
-              </div>
-            </ClientLayout>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              <ClientLayout>
+                <Navbar />
+                <div className="pt-16">
+                  {children}
+                </div>
+              </ClientLayout>
+            </ThemeProvider>
           </body>
         </html>
       </AuthProvider>
