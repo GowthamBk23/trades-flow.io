@@ -2,9 +2,9 @@ import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 
 export default async function TasksPage() {
-  const { userId } = await auth();
+  const session = await auth();
   
-  if (!userId) {
+  if (!session?.userId) {
     redirect("/sign-in");
   }
 
